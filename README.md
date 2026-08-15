@@ -2,7 +2,7 @@
 
 Export Revit geometry to SketchUp through a simple JSON-based workflow.
 
-## 1️⃣ Install in Revit
+## 1️ Install in Revit
 
 1. Double-click **`install.bat`**.
 
@@ -15,7 +15,7 @@ Done — a new **SketchUp Bridge** ribbon tab will appear automatically.
 
 > **One-time requirement:** Since this is a compiled Revit add-in, your computer needs **MSBuild** for the automatic build step. If MSBuild is not available, `install.bat` will let you know and point you to **Build Tools for Visual Studio**. The full Visual Studio IDE is not required. After installing the build tools, simply run `install.bat` again.
 
-## 2️⃣ Install in SketchUp
+## 2️ Install in SketchUp
 
 1. Open SketchUp → **Window > Extension Manager**.
 2. Click **Install Extension**.
