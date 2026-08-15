@@ -47,7 +47,7 @@ Write-Host ""
 if ($found) {
     Write-Host "======================================================"
     Write-Host "  DONE! The add-in has been removed." -ForegroundColor Green
-    Write-Host "  Restart Revit so the 'SketchUp Bridge' tab disappears." -ForegroundColor Green
+    Write-Host "  Restart Revit so the 'SketchUp Bridge' panel disappears." -ForegroundColor Green
     Write-Host "======================================================"
 } else {
     Write-Fail "No installed add-in was found for any Revit version."

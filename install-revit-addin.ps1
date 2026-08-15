@@ -1,19 +1,10 @@
 #Requires -Version 5.0
 <#
   install-revit-addin.ps1
-  ------------------------
-  Automatic installer for the "Export to SketchUp" Revit add-in.
-  You do NOT need to open Visual Studio or copy any files manually.
-
-  What this script does:
-    1. Detects which version(s) of Revit are installed.
-    2. Locates MSBuild (via any installed Visual Studio / Build Tools).
-    3. Restores and builds the add-in project for the detected Revit version.
-    4. Copies the resulting .dll + .addin into the correct Revit Addins folder.
-
-  NOTE: All output is also written to install-log.txt in the same folder as
-  this script, so it can be read/sent later even if the window closes before
-  you get a chance to screenshot it.
+  Builds and installs the "Export to SketchUp" Revit add-in.
+  Detects the installed Revit version, locates MSBuild, restores/builds the
+  project, and copies the output into the matching Revit Addins folder.
+  Output is also written to install-log.txt in this folder.
 #>
 
 $ErrorActionPreference = "Stop"
@@ -26,21 +17,14 @@ function Write-Step($msg) { Write-Host "`n==> $msg" -ForegroundColor Cyan }
 function Write-Ok($msg)   { Write-Host "    $msg" -ForegroundColor Green }
 function Write-Fail($msg) { Write-Host "    $msg" -ForegroundColor Red }
 
-# Everything printed to the screen (Write-Host, command output, etc.) is also
-# recorded to the log file.
 try { Start-Transcript -Path $LogFile -Force | Out-Null } catch { }
 
-# --- Wrap the ENTIRE process in try/catch/finally -----------------------------
-# So that if something unexpected goes wrong (not one of the errors we already
-# anticipated via Write-Fail), the window will STILL NOT close immediately --
-# the error message stays visible and is saved in install-log.txt.
 try {
 
     Write-Host "======================================================"
     Write-Host "  Revit Add-in Installer -> SketchUp Bridge"
     Write-Host "======================================================"
 
-    # --- 1. Detect installed Revit versions ----------------------------------
     Write-Step "Detecting installed Revit versions..."
 
     $revitInstalls = Get-ChildItem "C:\Program Files\Autodesk" -Directory -ErrorAction SilentlyContinue |
@@ -59,10 +43,10 @@ try {
         for ($i = 0; $i -lt $revitInstalls.Count; $i++) {
             Write-Host "      [$i] $($revitInstalls[$i].Name)"
         }
-        $idx = Read-Host "    Enter the number of the version you want to install the add-in into"
+        $idx = Read-Host "    Enter the number of the version to install into"
         $parsedIdx = 0
         if (-not [int]::TryParse($idx, [ref]$parsedIdx) -or $parsedIdx -lt 0 -or $parsedIdx -ge $revitInstalls.Count) {
-            Write-Fail "'$idx' is not a valid choice. It must be a number from the list above."
+            Write-Fail "'$idx' is not a valid choice."
             throw "Invalid Revit version selection."
         }
         $chosen = $revitInstalls[$parsedIdx]
@@ -71,7 +55,6 @@ try {
     $revitVersion = ($chosen.Name -replace "Revit ", "")
     Write-Ok "Using Revit $revitVersion ($($chosen.FullName))"
 
-    # --- 2. Locate MSBuild -----------------------------------------------------
     Write-Step "Looking for MSBuild..."
 
     $msbuildPath = $null
@@ -92,17 +75,14 @@ try {
 
     if (-not $msbuildPath) {
         Write-Fail "MSBuild was not found on this computer."
-        Write-Fail "This add-in needs to be compiled once on your machine (matching your installed Revit version)."
-        Write-Fail "Please install 'Build Tools for Visual Studio' (free, no full IDE required) from:"
+        Write-Fail "Install 'Build Tools for Visual Studio' (free) from:"
         Write-Fail "  https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio"
-        Write-Fail "During setup, check the '.NET desktop build tools' workload."
-        Write-Fail "Then run install.bat again."
+        Write-Fail "Check the '.NET desktop build tools' workload, then run install.bat again."
         throw "MSBuild not found."
     }
 
     Write-Ok "MSBuild found: $msbuildPath"
 
-    # --- 3. Restore + Build -----------------------------------------------------
     Write-Step "Restoring the project..."
 
     if ($msbuildPath -eq "dotnet-build") {
@@ -112,7 +92,7 @@ try {
     }
 
     if ($LASTEXITCODE -ne 0) {
-        Write-Fail "Restore failed (exit code $LASTEXITCODE). See the error above / in install-log.txt."
+        Write-Fail "Restore failed (exit code $LASTEXITCODE). See install-log.txt."
         throw "Restore failed."
     }
 
@@ -127,7 +107,7 @@ try {
     }
 
     if ($LASTEXITCODE -ne 0) {
-        Write-Fail "Build failed (exit code $LASTEXITCODE). See the error above / in install-log.txt."
+        Write-Fail "Build failed (exit code $LASTEXITCODE). See install-log.txt."
         throw "Build failed."
     }
 
@@ -135,13 +115,12 @@ try {
         Sort-Object LastWriteTime -Descending | Select-Object -First 1
 
     if (-not $builtDll) {
-        Write-Fail "Build succeeded but the compiled .dll could not be found inside $ProjectDir."
+        Write-Fail "Build succeeded but the compiled .dll was not found inside $ProjectDir."
         throw "Compiled .dll not found."
     }
 
     Write-Ok "Build succeeded: $($builtDll.FullName)"
 
-    # --- 4. Install into Revit's Addins folder -----------------------------------
     Write-Step "Installing the add-in into Revit $revitVersion..."
 
     $addinFolder = Join-Path $env:APPDATA "Autodesk\Revit\Addins\$revitVersion"
@@ -155,19 +134,17 @@ try {
     Write-Host "`n======================================================"
     Write-Host "  DONE!" -ForegroundColor Green
     Write-Host "  Open (or restart) Revit $revitVersion." -ForegroundColor Green
-    Write-Host "  A new 'SketchUp Bridge' ribbon tab will appear automatically." -ForegroundColor Green
+    Write-Host "  A 'SketchUp Bridge' panel will appear on the Add-Ins tab." -ForegroundColor Green
     Write-Host "======================================================"
 
 } catch {
     Write-Host "`n======================================================" -ForegroundColor Red
-    Write-Host "  AN ERROR OCCURRED" -ForegroundColor Red
+    Write-Host "  ERROR" -ForegroundColor Red
     Write-Host "======================================================" -ForegroundColor Red
     Write-Host "Error message: $($_.Exception.Message)" -ForegroundColor Red
     Write-Host "`nFull details:" -ForegroundColor Red
     Write-Host ($_ | Out-String) -ForegroundColor Red
-    Write-Host "`nA full log was also saved to:" -ForegroundColor Yellow
-    Write-Host "  $LogFile" -ForegroundColor Yellow
-    Write-Host "Please send that file's contents so the error can be diagnosed." -ForegroundColor Yellow
+    Write-Host "`nLog saved to: $LogFile" -ForegroundColor Yellow
 } finally {
     try { Stop-Transcript | Out-Null } catch { }
     Write-Host ""

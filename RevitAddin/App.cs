@@ -3,25 +3,17 @@ using System.Reflection;
 
 namespace RevitToSketchUpExporter
 {
-    /// <summary>
-    /// Revit entry point. Adds a ribbon tab + button that runs ExportCommand.
-    /// </summary>
     public class App : IExternalApplication
     {
         public Result OnStartup(UIControlledApplication application)
         {
-            const string tabName = "SketchUp Bridge";
-
-            try { application.CreateRibbonTab(tabName); }
-            catch { /* tab already exists, ignore */ }
-
-            RibbonPanel panel = application.CreateRibbonPanel(tabName, "Export");
+            RibbonPanel panel = application.CreateRibbonPanel("SketchUp Bridge");
 
             string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
 
             PushButtonData buttonData = new PushButtonData(
                 "ExportToSketchUpBtn",
-                "Export to\nSketchUp (JSON)",
+                "Export to SketchUp (JSON)",
                 thisAssemblyPath,
                 "RevitToSketchUpExporter.ExportCommand")
             {

@@ -1,8 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- Revit 2021-2024 = .NET Framework 4.8 target. For Revit 2025+ (net8.0-windows),
-         change TargetFramework to net8.0-windows and remove UseWindowsForms line replacement notes below. -->
+    <!-- Revit 2021-2024: net48. Revit 2025+: net8.0-windows. -->
     <TargetFramework>net48</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <LangVersion>latest</LangVersion>
@@ -11,7 +10,6 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Nullable>disable</Nullable>
 
-    <!-- Sesuaikan dengan versi Revit yang terpasang di komputer Anda -->
     <RevitVersion>2024</RevitVersion>
   </PropertyGroup>
 

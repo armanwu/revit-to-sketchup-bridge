@@ -14,11 +14,10 @@ namespace RevitToSketchUpExporter
     [Regeneration(RegenerationOption.Manual)]
     public class ExportCommand : IExternalCommand
     {
-        // Revit's internal unit is feet. The SketchUp Ruby API treats plain
-        // numeric Point3d coordinates as inches, so everything is multiplied by 12.
+        // Revit: feet. SketchUp Ruby API: inches.
         private const double FeetToInches = 12.0;
 
-        // Geometric tolerances are expressed in the units noted by each constant.
+        // Tolerances; units noted per constant.
         private const double LengthToleranceFeet = 1e-9;
         private const double SolidVolumeToleranceCuFt = 1e-9;
         private const double ParameterTolerance = 1e-9;
@@ -104,7 +103,6 @@ namespace RevitToSketchUpExporter
                         continue;
                     }
 
-                    // Fallback color in case a face has no material of its own.
                     int[] elementFallbackColor =
                         GetElementColor(doc, el);
 
@@ -197,10 +195,6 @@ namespace RevitToSketchUpExporter
                                 face,
                                 fallbackColor);
 
-                        // Export only simple, untrimmed cylindrical patches
-                        // as analytic cylinders. Any cylindrical face that
-                        // cannot safely be represented as one rectangular
-                        // UV patch falls back to triangulation.
                         if (face is CylindricalFace cylFace &&
                             TryBuildCylindricalFace(
                                 cylFace,
@@ -222,10 +216,7 @@ namespace RevitToSketchUpExporter
                 }
                 else if (obj is GeometryInstance instance)
                 {
-                    // GetInstanceGeometry() already returns a transformed
-                    // copy of the instance geometry. Applying
-                    // instance.Transform again would apply the placement
-                    // twice.
+                    // GetInstanceGeometry() is already transformed; do not reapply instance.Transform.
                     GeometryElement instGeom =
                         instance.GetInstanceGeometry();
 
@@ -256,10 +247,6 @@ namespace RevitToSketchUpExporter
             }
         }
 
-        // Builds an analytic description only when the cylindrical
-        // face is a simple rectangular patch in UV space.
-        // Trimmed/opened/irregular faces are deliberately rejected
-        // and exported through Face.Triangulate().
         private bool TryBuildCylindricalFace(
             CylindricalFace cylFace,
             Transform transform,
@@ -270,8 +257,6 @@ namespace RevitToSketchUpExporter
 
             try
             {
-                // Split-face regions are safer to preserve through
-                // triangulation than as one analytic patch.
                 if (cylFace.HasRegions)
                     return false;
 
@@ -298,16 +283,13 @@ namespace RevitToSketchUpExporter
                     return false;
                 }
 
-                // A cylindrical face should not require more
-                // than one complete turn.
                 if (angleSpan >
                     (2.0 * Math.PI) + 1e-6)
                 {
                     return false;
                 }
 
-                // CylindricalFace.Radius is an XYZ radius vector,
-                // not a scalar radius.
+                // CylindricalFace.Radius returns an XYZ vector, not a scalar.
                 XYZ radiusVector =
                     cylFace.get_Radius(0);
 
@@ -320,14 +302,8 @@ namespace RevitToSketchUpExporter
                 if (radius <= LengthToleranceFeet)
                     return false;
 
-                // For a simple rectangular cylindrical UV patch:
-                //
-                // area = radius * angle * height
-                //
-                // If the actual face area is different, the cylinder
-                // contains trimming, openings, slanted boundaries, etc.
-                // In that situation reconstructing the whole bounding
-                // rectangle would create geometry that does not exist.
+                // Expected area for a clean rectangular UV patch = radius * angle * height.
+                // A mismatch means trimming/openings exist and the patch isn't safe to rebuild.
                 double expectedArea =
                     radius *
                     angleSpan *
@@ -388,8 +364,6 @@ namespace RevitToSketchUpExporter
                     return false;
                 }
 
-                // Make sure the radius obtained through Evaluate()
-                // agrees with CylindricalFace.Radius.
                 double radiusTolerance =
                     Math.Max(
                         LengthToleranceFeet,
@@ -406,10 +380,7 @@ namespace RevitToSketchUpExporter
                 XYZ startRefDirLocal =
                     radialLocal.Normalize();
 
-                // BasisX is the tangent in the positive U direction.
-                // It lets us determine whether the Revit cylinder
-                // parameterization follows the right-hand rule around
-                // the cylinder Axis.
+                // BasisX = tangent in +U; used to check parameterization handedness.
                 Transform derivatives =
                     cylFace.ComputeDerivatives(startUv);
 
@@ -459,20 +430,13 @@ namespace RevitToSketchUpExporter
 
                 if (handedness >= 0.0)
                 {
-                    // Normal right-handed sweep.
                     refDirWorld =
                         startRefDirWorld;
                 }
                 else
                 {
-                    // Revit's parameterization is reversed relative
-                    // to SketchUp's positive right-hand sweep.
-                    //
-                    // Instead of writing a negative AngleSpan, use the
-                    // other end of the Revit U range as the starting
-                    // radial direction. This preserves a positive
-                    // AngleSpan and keeps the JSON format compatible
-                    // with the existing importer.
+                    // Reversed parameterization: use the other end of the U
+                    // range as the start direction so AngleSpan stays positive.
                     UV endUv =
                         new UV(
                             uMax,
@@ -559,8 +523,6 @@ namespace RevitToSketchUpExporter
             }
             catch
             {
-                // If analytic reconstruction fails for any reason,
-                // the caller will fall back to triangulation.
                 return false;
             }
         }
@@ -635,8 +597,6 @@ namespace RevitToSketchUpExporter
             }
         }
 
-        // A triangle is degenerate when the cross product
-        // of two edges is effectively zero.
         private bool IsDegenerate(
             List<double[]> v)
         {
@@ -717,13 +677,11 @@ namespace RevitToSketchUpExporter
             }
             catch
             {
-                // Some elements do not expose a usable LevelId.
             }
 
             return "";
         }
 
-        // Prefer the material assigned directly to the face.
         private int[] GetFaceColor(
             Document doc,
             Face face,
@@ -753,7 +711,6 @@ namespace RevitToSketchUpExporter
             }
             catch
             {
-                // Use fallback.
             }
 
             return fallback;
@@ -788,13 +745,11 @@ namespace RevitToSketchUpExporter
             }
             catch
             {
-                // Use fallback.
             }
 
             return fallback;
         }
 
-        // Last-resort material fallback before default gray.
         private int[] GetElementColor(
             Document doc,
             Element el)
@@ -824,15 +779,11 @@ namespace RevitToSketchUpExporter
             }
             catch
             {
-                // Use default color.
             }
 
             return DefaultColor;
         }
 
-        // Revit 2024+ uses the 64-bit ElementId.Value.
-        // Older Revit API generations expose IntegerValue.
-        // Reflection makes this source usable with both forms.
         private long GetElementIdValue(
             ElementId id)
         {

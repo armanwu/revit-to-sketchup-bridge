@@ -4,11 +4,6 @@ using System.Text;
 
 namespace RevitToSketchUpExporter
 {
-    /// <summary>
-    /// Small, dependency-free JSON serializer so the add-in doesn't need an
-    /// extra NuGet package (Newtonsoft.Json etc.) that could clash with
-    /// Revit's own assembly versions.
-    /// </summary>
     internal static class JsonWriter
     {
         public static string Serialize(List<ExportedElement> elements, string sourceDocTitle)

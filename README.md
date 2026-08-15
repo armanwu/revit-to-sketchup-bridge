@@ -1,4 +1,4 @@
-# Revit to SketchUp Bridge
+# Revit → SketchUp Bridge
 
 Export Revit geometry to SketchUp through a simple JSON-based workflow.
 
@@ -11,7 +11,7 @@ Export Revit geometry to SketchUp through a simple JSON-based workflow.
    * You do not need to open Visual Studio.
 2. Open or restart Revit.
 
-Done — a new **SketchUp Bridge** ribbon tab will appear automatically.
+Done — a **SketchUp Bridge** panel will appear on the **Add-Ins** tab.
 
 > **One-time requirement:** Since this is a compiled Revit add-in, your computer needs **MSBuild** for the automatic build step. If MSBuild is not available, `install.bat` will let you know and point you to **Build Tools for Visual Studio**. The full Visual Studio IDE is not required. After installing the build tools, simply run `install.bat` again.
 
@@ -32,7 +32,7 @@ Done — a new menu item will appear at:
 | In Revit                                                                                      | In SketchUp                                                                         |
 | --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | Select elements, or leave nothing selected to export everything visible in the active 3D view | Click **Extensions > Import Revit Export (JSON)...**                                |
-| Click **Export to SketchUp (JSON)** on the **SketchUp Bridge** tab                            | Select the `.json` file exported from Revit                                         |
+| Click **Export to SketchUp (JSON)** on the **SketchUp Bridge** panel (Add-Ins tab)             | Select the `.json` file exported from Revit                                         |
 | Save the `.json` file                                                                         | The model appears in SketchUp, grouped by category and level, with its Revit colors |
 
 ---
@@ -43,7 +43,7 @@ Done — a new menu item will appear at:
 
 Double-click **`uninstall.bat`**, then restart Revit.
 
-The **SketchUp Bridge** ribbon tab will be removed.
+The **SketchUp Bridge** panel will be removed.
 
 ### SketchUp
 

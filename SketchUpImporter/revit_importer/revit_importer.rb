@@ -1,9 +1,6 @@
 require 'sketchup.rb'
 require 'json'
 
-# ---------------------------------------------------------------------------
-# Revit -> SketchUp importer
-#
 # Reads the JSON file produced by the Revit "Export to SketchUp" add-in and
 # rebuilds the geometry inside the currently active SketchUp model:
 #   - one Group per Revit element
@@ -12,14 +9,6 @@ require 'json'
 #   - "mesh" faces imported directly
 #   - "cylinder" faces rebuilt as segmented quad strips with softened/smoothed
 #     longitudinal edges
-#
-# IMPORTANT:
-# The previous implementation rebuilt cylindrical faces with add_circle/add_arc
-# + Face#followme. Follow Me can replace/delete geometry that was just created,
-# which makes cached Face/Entities references fragile. This version does not use
-# Follow Me at all. It reconstructs only the cylindrical WALL represented by the
-# Revit face, rather than creating an unnecessary solid cylinder/wedge.
-# ---------------------------------------------------------------------------
 module RevitImporter
 
   COPLANAR_ANGLE_TOLERANCE_DEG = 1.0
@@ -101,9 +90,6 @@ module RevitImporter
         element_faces_created = 0
 
         (el['faces'] || []).each_with_index do |face_data, face_index|
-          # Reacquire the Entities collection from the group for every face.
-          # This avoids retaining a stale collection if SketchUp internally
-          # replaces geometry while adding faces.
           unless group.valid?
             debug_error(
               "Element #{element_index}, face #{face_index}: group became invalid"
@@ -210,17 +196,8 @@ module RevitImporter
     false
   end
 
-  # Rebuilds only the cylindrical surface represented by the Revit face.
-  #
-  # Instead of creating a disk/pie-slice and using Follow Me, the surface is
-  # created directly as a strip of planar quads. Shared longitudinal edges are
-  # then marked soft + smooth, so the result displays as a smooth cylinder.
-  #
-  # This avoids two problems in the former implementation:
-  #   1. Follow Me can replace/delete the profile/path geometry, leaving stale
-  #      Ruby references.
-  #   2. Extruding a disk/pie-slice creates an entire solid, even though the
-  #      JSON record represents only one cylindrical Face from Revit.
+  # Rebuilds a cylindrical face as a strip of planar quads, then marks the
+  # shared longitudinal edges soft + smooth so it renders as one curved wall.
   def self.add_cylindrical_face(entities, face_data, material)
     return false unless face_data.is_a?(Hash)
 
@@ -261,9 +238,7 @@ module RevitImporter
 
     axis_vec.normalize!
 
-    # Remove any tiny component of RefDir along Axis. This makes the basis
-    # robust even when exported floating-point values are not perfectly
-    # perpendicular.
+    # Re-orthogonalize ref_dir against axis_vec (guards against FP drift).
     ref_dir = Geom::Vector3d.linear_combination(
       1.0, ref_dir,
       -ref_dir.dot(axis_vec), axis_vec
@@ -315,8 +290,7 @@ module RevitImporter
       face.back_material = material
       created_faces << face
 
-      # Count edges used by this cylinder strip. Edges seen twice are the
-      # longitudinal seams between neighboring segments and should be smooth.
+      # Edges shared by two segments are the longitudinal seams; soften those.
       face.edges.each do |edge|
         next unless edge.valid?
         id = edge.entityID
@@ -351,7 +325,6 @@ module RevitImporter
   def self.soften_coplanar_edges(entities)
     tolerance = COPLANAR_ANGLE_TOLERANCE_DEG.degrees
 
-    # Query fresh edge references from the current Entities collection.
     entities.grep(Sketchup::Edge).each do |edge|
       next unless edge.valid?
 
