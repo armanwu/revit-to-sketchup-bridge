@@ -1,0 +1,8 @@
+C:\Users\archdz\Downloads\RevitToSketchUpBridge\RevitAddin\obj\x64\Release\RevitToSketchUpExporter.csproj.AssemblyReference.cache
+C:\Users\archdz\Downloads\RevitToSketchUpBridge\RevitAddin\obj\x64\Release\RevitToSketchUpExporter.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\archdz\Downloads\RevitToSketchUpBridge\RevitAddin\obj\x64\Release\RevitToSketchUpExporter.csproj.CoreCompileInputs.cache
+C:\Users\archdz\Downloads\RevitToSketchUpBridge\RevitAddin\bin\x64\Release\RevitToSketchUpExporter.addin
+C:\Users\archdz\Downloads\RevitToSketchUpBridge\RevitAddin\bin\x64\Release\RevitToSketchUpExporter.dll
+C:\Users\archdz\Downloads\RevitToSketchUpBridge\RevitAddin\bin\x64\Release\RevitToSketchUpExporter.pdb
+C:\Users\archdz\Downloads\RevitToSketchUpBridge\RevitAddin\obj\x64\Release\RevitToSketchUpExporter.dll
+C:\Users\archdz\Downloads\RevitToSketchUpBridge\RevitAddin\obj\x64\Release\RevitToSketchUpExporter.pdb
