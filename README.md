@@ -1,4 +1,4 @@
-# Revit → SketchUp Bridge
+# Revit to SketchUp Bridge
 
 Export Revit geometry to SketchUp through a simple JSON-based workflow.
 
