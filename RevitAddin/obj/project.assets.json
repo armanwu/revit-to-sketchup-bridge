@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\archdz\\Downloads\\RevitToSketchUpBridge\\RevitAddin\\RevitToSketchUpExporter.csproj",
+      "projectUniqueName": "F:\\core\\projects\\github\\revit-to-sketchup-bridge\\RevitAddin\\RevitToSketchUpExporter.csproj",
       "projectName": "RevitToSketchUpExporter",
-      "projectPath": "C:\\Users\\archdz\\Downloads\\RevitToSketchUpBridge\\RevitAddin\\RevitToSketchUpExporter.csproj",
+      "projectPath": "F:\\core\\projects\\github\\revit-to-sketchup-bridge\\RevitAddin\\RevitToSketchUpExporter.csproj",
       "packagesPath": "C:\\Users\\archdz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\archdz\\Downloads\\RevitToSketchUpBridge\\RevitAddin\\obj\\",
+      "outputPath": "F:\\core\\projects\\github\\revit-to-sketchup-bridge\\RevitAddin\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\archdz\\AppData\\Roaming\\NuGet\\NuGet.Config",

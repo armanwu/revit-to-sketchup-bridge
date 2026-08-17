@@ -4,6 +4,7 @@
     <!-- Revit 2021-2024: net48. Revit 2025+: net8.0-windows. -->
     <TargetFramework>net48</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
     <LangVersion>latest</LangVersion>
     <PlatformTarget>x64</PlatformTarget>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -28,6 +29,7 @@
     <None Include="RevitToSketchUpExporter.addin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <EmbeddedResource Include="Resources\*.png" />
   </ItemGroup>
 
 </Project>
