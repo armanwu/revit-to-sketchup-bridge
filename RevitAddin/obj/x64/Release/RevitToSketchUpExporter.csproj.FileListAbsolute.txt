@@ -15,3 +15,4 @@ F:\core\projects\github\revit-to-sketchup-bridge\RevitAddin\obj\x64\Release\Revi
 F:\core\projects\github\revit-to-sketchup-bridge\RevitAddin\obj\x64\Release\RevitToSketchUpExporter.sourcelink.json
 F:\core\projects\github\revit-to-sketchup-bridge\RevitAddin\obj\x64\Release\RevitToSketchUpExporter.dll
 F:\core\projects\github\revit-to-sketchup-bridge\RevitAddin\obj\x64\Release\RevitToSketchUpExporter.pdb
+F:\core\projects\github\revit-to-sketchup-bridge\RevitAddin\obj\x64\Release\RevitToSketchUpExporter.g.resources
