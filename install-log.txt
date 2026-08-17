@@ -1,12 +1,12 @@
 ﻿**********************
 Windows PowerShell transcript start
-Start time: 20260817090958
+Start time: 20260817091239
 Username: i964rtx\archdz
 RunAs User: i964rtx\archdz
 Configuration Name: 
 Machine: I964RTX (Microsoft Windows NT 10.0.26200.0)
 Host Application: powershell -NoProfile -ExecutionPolicy Bypass -File F:\core\projects\github\revit-to-sketchup-bridge\install-revit-addin.ps1
-Process ID: 32672
+Process ID: 30952
 PSVersion: 5.1.26100.9168
 PSEdition: Desktop
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9168
@@ -739,5 +739,5 @@ C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Current\Bin\Micros
 ======================================================
 **********************
 Windows PowerShell transcript end
-End time: 20260817091002
+End time: 20260817091244
 **********************

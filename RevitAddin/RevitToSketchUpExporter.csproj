@@ -29,7 +29,8 @@
     <None Include="RevitToSketchUpExporter.addin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <EmbeddedResource Include="Resources\*.png" />
+    <EmbeddedResource Include="..\Resources\icon128.png" Link="Resources\icon128.png" />
+    <EmbeddedResource Include="..\Resources\icon64.png" Link="Resources\icon64.png" />
   </ItemGroup>
 
 </Project>

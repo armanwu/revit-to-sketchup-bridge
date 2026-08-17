@@ -101,9 +101,9 @@ try {
     Write-Step "Compiling the add-in for Revit $revitVersion..."
 
     if ($msbuildPath -eq "dotnet-build") {
-        & dotnet build $Csproj -c Release -p:RevitVersion=$revitVersion -p:Platform=x64 2>&1 | ForEach-Object { Write-Host $_ }
+        & dotnet build $Csproj -c Release --no-incremental -p:RevitVersion=$revitVersion -p:Platform=x64 2>&1 | ForEach-Object { Write-Host $_ }
     } else {
-        & $msbuildPath $Csproj /p:Configuration=Release /p:RevitVersion=$revitVersion /p:Platform=x64 /nologo /verbosity:minimal 2>&1 | ForEach-Object { Write-Host $_ }
+        & $msbuildPath $Csproj /t:Rebuild /p:Configuration=Release /p:RevitVersion=$revitVersion /p:Platform=x64 /nologo /verbosity:minimal 2>&1 | ForEach-Object { Write-Host $_ }
     }
 
     if ($LASTEXITCODE -ne 0) {
