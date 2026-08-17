@@ -26,8 +26,8 @@ namespace RevitToSketchUpExporter
 
             Assembly assembly = Assembly.GetExecutingAssembly();
 
-            // Load 128x128 icon for LargeImage
-            using (Stream streamLarge = assembly.GetManifestResourceStream("RevitToSketchUpExporter.Resources.icon128.png"))
+            // Load 32x32 icon for LargeImage
+            using (Stream streamLarge = assembly.GetManifestResourceStream("RevitToSketchUpExporter.Resources.icon32.png"))
             {
                 if (streamLarge != null)
                 {
@@ -35,8 +35,8 @@ namespace RevitToSketchUpExporter
                 }
             }
 
-            // Load 64x64 icon for small Image
-            using (Stream streamSmall = assembly.GetManifestResourceStream("RevitToSketchUpExporter.Resources.icon64.png"))
+            // Load 16x16 icon for small Image
+            using (Stream streamSmall = assembly.GetManifestResourceStream("RevitToSketchUpExporter.Resources.icon16.png"))
             {
                 if (streamSmall != null)
                 {
