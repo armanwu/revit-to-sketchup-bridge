@@ -364,7 +364,7 @@ module RevitImporter
   end
 
   unless file_loaded?(__FILE__)
-    UI.menu('Extensions').add_item('Import Revit Export (JSON)...') do
+    UI.menu('Extensions').add_item('Import from Revit (.json)...') do
       RevitImporter.run
     end
     file_loaded(__FILE__)
