@@ -89,16 +89,6 @@ SketchUpImporter/
 
 ---
 
-## AI Assistance Disclosure
-
-This project was developed with assistance from AI tools, including **Claude by Anthropic** and **ChatGPT by OpenAI**. These tools were used to support coding, debugging, code review, and documentation.
-
-All AI-generated suggestions were reviewed, tested, and adapted by the project author. The author remains responsible for the final implementation, functionality, and maintenance of this project.
-
-This project is not affiliated with or endorsed by Anthropic or OpenAI.
-
----
-
 ## License
 
 This project is licensed under the **MIT License**.
