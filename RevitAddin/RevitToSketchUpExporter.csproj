@@ -7,7 +7,11 @@
     <UseWPF>true</UseWPF>
     <LangVersion>latest</LangVersion>
     <PlatformTarget>x64</PlatformTarget>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Title>SketchUp Bridge</Title>
+    <Product>SketchUp Bridge</Product>
+    <Company>Arman Arisman</Company>
+    <Authors>Arman Arisman</Authors>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Nullable>disable</Nullable>
 

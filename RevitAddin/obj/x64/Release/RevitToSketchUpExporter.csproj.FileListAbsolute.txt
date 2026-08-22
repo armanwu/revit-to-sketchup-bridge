@@ -1,0 +1,11 @@
+F:\core\projects\github\revit-to-sketchup-bridge\RevitAddin\bin\x64\Release\RevitToSketchUpExporter.addin
+F:\core\projects\github\revit-to-sketchup-bridge\RevitAddin\bin\x64\Release\RevitToSketchUpExporter.dll
+F:\core\projects\github\revit-to-sketchup-bridge\RevitAddin\bin\x64\Release\RevitToSketchUpExporter.pdb
+F:\core\projects\github\revit-to-sketchup-bridge\RevitAddin\obj\x64\Release\RevitToSketchUpExporter.csproj.AssemblyReference.cache
+F:\core\projects\github\revit-to-sketchup-bridge\RevitAddin\obj\x64\Release\RevitToSketchUpExporter.GeneratedMSBuildEditorConfig.editorconfig
+F:\core\projects\github\revit-to-sketchup-bridge\RevitAddin\obj\x64\Release\RevitToSketchUpExporter.csproj.CoreCompileInputs.cache
+F:\core\projects\github\revit-to-sketchup-bridge\RevitAddin\obj\x64\Release\RevitToSketchUpExporter.sourcelink.json
+F:\core\projects\github\revit-to-sketchup-bridge\RevitAddin\obj\x64\Release\RevitToSketchUpExporter.dll
+F:\core\projects\github\revit-to-sketchup-bridge\RevitAddin\obj\x64\Release\RevitToSketchUpExporter.pdb
+F:\core\projects\github\revit-to-sketchup-bridge\RevitAddin\obj\x64\Release\RevitToSketchUpExporter.AssemblyInfoInputs.cache
+F:\core\projects\github\revit-to-sketchup-bridge\RevitAddin\obj\x64\Release\RevitToSketchUpExporter.AssemblyInfo.cs
