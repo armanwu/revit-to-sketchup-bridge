@@ -15,7 +15,7 @@
 * 🎯 **Smart Geometry Export**: Exports selected elements or all visible geometry in the active 3D view.
 * 🏷️ **Clean Tag Organization**: Imported elements in SketchUp are automatically organized into Tags based on their Revit categories (e.g., `Revit - Walls`, `Revit - Doors`, `Revit - Windows`).
 * 🎨 **Material & Color Preservation**: Reads per-face colors and materials directly from Revit families, types, and subcategories.
-* ⭕ **Smooth Curved Surfaces**: Reconstructs Revit cylindrical surfaces (curved walls, columns, pipes) as smooth, segmented geometry with hidden coplanar seams in SketchUp.
+* 📊 **Responsive Progress Bar & Non-Blocking Parsing**: Features a modern HTML progress modal (`UI::HtmlDialog`) and background batch processing in SketchUp to import large models smoothly without UI freezing ("Not Responding"). Includes one-click import cancellation.
 * 🔄 **Broad Revit Compatibility**: Works across Revit 2021, 2022, 2023, 2024, 2025, 2026, and 2027+.
 
 ---
