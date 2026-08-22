@@ -1,4 +1,0 @@
-F:\core\projects\github\revit-to-sketchup-bridge\RevitAddin\obj\Release\RevitToSketchUpExporter.csproj.AssemblyReference.cache
-F:\core\projects\github\revit-to-sketchup-bridge\RevitAddin\obj\Release\RevitToSketchUpExporter.GeneratedMSBuildEditorConfig.editorconfig
-F:\core\projects\github\revit-to-sketchup-bridge\RevitAddin\obj\Release\RevitToSketchUpExporter.csproj.CoreCompileInputs.cache
-F:\core\projects\github\revit-to-sketchup-bridge\RevitAddin\obj\Release\RevitToSketchUpExporter.sourcelink.json
