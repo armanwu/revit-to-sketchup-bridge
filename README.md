@@ -33,7 +33,7 @@ Done — a new menu item will appear at:
 | --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | Select elements, or leave nothing selected to export everything visible in the active 3D view | Click **Extensions > Import Revit Export (JSON)...**                                |
 | Click **Export to SketchUp (JSON)** on the **SketchUp Bridge** panel (Add-Ins tab)             | Select the `.json` file exported from Revit                                         |
-| Save the `.json` file                                                                         | The model appears in SketchUp, grouped by category and level, with its Revit colors |
+| Save the `.json` file                                                                         | The model appears in SketchUp, grouped by category, with its Revit colors          |
 
 ---
 

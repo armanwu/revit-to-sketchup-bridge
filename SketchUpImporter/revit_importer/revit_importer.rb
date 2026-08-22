@@ -4,7 +4,7 @@ require 'json'
 # Reads the JSON file produced by the Revit "Export to SketchUp" add-in and
 # rebuilds the geometry inside the currently active SketchUp model:
 #   - one Group per Revit element
-#   - one Tag per "Category - Level"
+#   - one Tag per "Category"
 #   - material/color read per face
 #   - "mesh" faces imported directly
 #   - "cylinder" faces rebuilt as segmented quad strips with softened/smoothed
@@ -74,13 +74,7 @@ module RevitImporter
         category = el['category'].to_s
         category = 'Uncategorized' if category.empty?
 
-        level = el['level'].to_s.strip
-        layer_name = if level.empty?
-                       "Revit - #{category}"
-                     else
-                       "Revit - #{category} - #{level}"
-                     end
-
+        layer_name = "Revit - #{category}"
         layer = model.layers[layer_name] || model.layers.add(layer_name)
 
         group = root.add_group

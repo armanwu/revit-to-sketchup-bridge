@@ -4,20 +4,16 @@
   Builds and installs the "Export to SketchUp" Revit add-in.
   Detects the installed Revit version, locates MSBuild, restores/builds the
   project, and copies the output into the matching Revit Addins folder.
-  Output is also written to install-log.txt in this folder.
 #>
 
 $ErrorActionPreference = "Stop"
 $ScriptDir  = Split-Path -Parent $MyInvocation.MyCommand.Path
 $ProjectDir = Join-Path $ScriptDir "RevitAddin"
 $Csproj     = Join-Path $ProjectDir "RevitToSketchUpExporter.csproj"
-$LogFile    = Join-Path $ScriptDir "install-log.txt"
 
 function Write-Step($msg) { Write-Host "`n==> $msg" -ForegroundColor Cyan }
 function Write-Ok($msg)   { Write-Host "    $msg" -ForegroundColor Green }
 function Write-Fail($msg) { Write-Host "    $msg" -ForegroundColor Red }
-
-try { Start-Transcript -Path $LogFile -Force | Out-Null } catch { }
 
 try {
 
@@ -92,7 +88,7 @@ try {
     }
 
     if ($LASTEXITCODE -ne 0) {
-        Write-Fail "Restore failed (exit code $LASTEXITCODE). See install-log.txt."
+        Write-Fail "Restore failed (exit code $LASTEXITCODE)."
         throw "Restore failed."
     }
 
@@ -107,7 +103,7 @@ try {
     }
 
     if ($LASTEXITCODE -ne 0) {
-        Write-Fail "Build failed (exit code $LASTEXITCODE). See install-log.txt."
+        Write-Fail "Build failed (exit code $LASTEXITCODE)."
         throw "Build failed."
     }
 
@@ -144,9 +140,7 @@ try {
     Write-Host "Error message: $($_.Exception.Message)" -ForegroundColor Red
     Write-Host "`nFull details:" -ForegroundColor Red
     Write-Host ($_ | Out-String) -ForegroundColor Red
-    Write-Host "`nLog saved to: $LogFile" -ForegroundColor Yellow
 } finally {
-    try { Stop-Transcript | Out-Null } catch { }
     Write-Host ""
     Read-Host "Press Enter to close this window"
 }
