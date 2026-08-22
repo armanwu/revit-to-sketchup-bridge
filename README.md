@@ -19,11 +19,11 @@ Done — a **SketchUp Bridge** panel will appear on the **Add-Ins** tab.
 
 1. Open SketchUp → **Window > Extension Manager**.
 2. Click **Install Extension**.
-3. Select **`RevitJsonImporter.rbz`** from the `SketchUpImporter/` folder.
+3. Select **`RevitJsonImporter.rbz`** from the `SketchUpExtension/` folder.
 
 Done — a new menu item will appear at:
 
-**Extensions > Import Revit Export (JSON)...**
+**Extensions > Import from Revit (JSON)**
 
 ---
 
@@ -31,7 +31,7 @@ Done — a new menu item will appear at:
 
 | In Revit                                                                                      | In SketchUp                                                                         |
 | --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| Select elements, or leave nothing selected to export everything visible in the active 3D view | Click **Extensions > Import Revit Export (JSON)...**                                |
+| Select elements, or leave nothing selected to export everything visible in the active 3D view | Click **Extensions > Import from Revit (JSON)**                                     |
 | Click **Export to SketchUp (JSON)** on the **SketchUp Bridge** panel (Add-Ins tab)             | Select the `.json` file exported from Revit                                         |
 | Save the `.json` file                                                                         | The model appears in SketchUp, grouped by category, with its Revit colors          |
 
@@ -64,7 +64,7 @@ uninstall-revit-addin.ps1
 RevitAddin/
   ... Revit add-in source code (C#)
 
-SketchUpImporter/
+SketchUpExtension/
   RevitJsonImporter.rbz
   revit_importer_extension.rb
   revit_importer/
@@ -89,8 +89,16 @@ SketchUpImporter/
 
 ---
 
-## License
+## License & Copyright
 
-This project is licensed under the **MIT License**.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Copyright © 2026 Arman Arisman
+This project is open-source software distributed under the terms of the **[MIT License](LICENSE)**.
+
+```text
+Copyright (c) 2026 Arman Arisman
+```
+
+You are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of this software for both commercial and non-commercial purposes, provided that the above copyright notice and permission notice are included in all copies or substantial portions of the software.
+
+For full license terms and conditions, please refer to the [`LICENSE`](LICENSE) file.
