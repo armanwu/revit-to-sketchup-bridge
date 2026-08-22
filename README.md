@@ -1,4 +1,4 @@
-# 🌉 Revit to SketchUp Bridge
+# Revit to SketchUp Bridge
 
 [![Revit Version](https://img.shields.io/badge/Revit-2021%20--%202027%2B-blue.svg)](https://www.autodesk.com/products/revit/overview)
 [![SketchUp Compatible](https://img.shields.io/badge/SketchUp-2017%20--%202026%2B-red.svg)](https://www.sketchup.com/)
