@@ -1,95 +1,106 @@
-# Revit to SketchUp Bridge
+# 🌉 Revit to SketchUp Bridge
 
-Export Revit geometry to SketchUp through a simple JSON-based workflow.
+[![Revit Version](https://img.shields.io/badge/Revit-2021%20--%202027%2B-blue.svg)](https://www.autodesk.com/products/revit/overview)
+[![SketchUp Compatible](https://img.shields.io/badge/SketchUp-2017%20--%202026%2B-red.svg)](https://www.sketchup.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Windows-lightgray.svg)]()
 
-## Install in Revit
-
-1. Double-click **`install.bat`**.
-
-   * The installer automatically detects your Revit version.
-   * It builds the add-in and installs it into the correct Revit add-ins folder.
-   * You do not need to open Visual Studio.
-2. Open or restart Revit.
-
-Done — a **SketchUp Bridge** panel will appear on the **Add-Ins** tab.
-
-> **One-time requirement:** Since this is a compiled Revit add-in, your computer needs **MSBuild** for the automatic build step. If MSBuild is not available, `install.bat` will let you know and point you to **Build Tools for Visual Studio**. The full Visual Studio IDE is not required. After installing the build tools, simply run `install.bat` again.
-
-## Install in SketchUp
-
-1. Open SketchUp → **Window > Extension Manager**.
-2. Click **Install Extension**.
-3. Select **`RevitJsonImporter.rbz`** from the `SketchUpExtension/` folder.
-
-Done — a new menu item will appear at:
-
-**Extensions > Import from Revit (JSON)**
+> Seamlessly export 3D geometry from Autodesk Revit to Trimble SketchUp using an efficient, lightweight JSON-based workflow.
 
 ---
 
-## Everyday Usage
+## 🌟 Key Features
 
-| In Revit                                                                                      | In SketchUp                                                                         |
-| --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| Select elements, or leave nothing selected to export everything visible in the active 3D view | Click **Extensions > Import from Revit (JSON)**                                     |
-| Click **Export to SketchUp (JSON)** on the **SketchUp Bridge** panel (Add-Ins tab)             | Select the `.json` file exported from Revit                                         |
-| Save the `.json` file                                                                         | The model appears in SketchUp, grouped by category, with its Revit colors          |
-
----
-
-## Uninstalling
-
-### Revit
-
-Double-click **`uninstall.bat`**, then restart Revit.
-
-The **SketchUp Bridge** panel will be removed.
-
-### SketchUp
-
-1. Open **Window > Extension Manager**.
-2. Find **Revit JSON Importer**.
-3. Click the uninstall icon next to the extension.
+* 🚀 **One-Click Installation**: Automated installer script detects your installed Revit version, builds the C# add-in, and deploys it automatically—no Visual Studio required.
+* 🎯 **Smart Geometry Export**: Exports selected elements or all visible geometry in the active 3D view.
+* 🏷️ **Clean Tag Organization**: Imported elements in SketchUp are automatically organized into Tags based on their Revit categories (e.g., `Revit - Walls`, `Revit - Doors`, `Revit - Windows`).
+* 🎨 **Material & Color Preservation**: Reads per-face colors and materials directly from Revit families, types, and subcategories.
+* ⭕ **Smooth Curved Surfaces**: Reconstructs Revit cylindrical surfaces (curved walls, columns, pipes) as smooth, segmented geometry with hidden coplanar seams in SketchUp.
+* 🔄 **Broad Revit Compatibility**: Works across Revit 2021, 2022, 2023, 2024, 2025, 2026, and 2027+.
 
 ---
 
-## Folder Contents
+## 🔄 Workflow Overview
 
 ```text
-install.bat
-uninstall.bat
-install-revit-addin.ps1
-uninstall-revit-addin.ps1
-
-RevitAddin/
-  ... Revit add-in source code (C#)
-
-SketchUpExtension/
-  RevitJsonImporter.rbz
-  revit_importer_extension.rb
-  revit_importer/
-    revit_importer.rb
+  ┌─────────────────┐       Export        ┌──────────────────┐       Import        ┌──────────────────┐
+  │   Revit Model   │  ────────────────>  │  .json Data File │  ────────────────>  │  SketchUp Model  │
+  └─────────────────┘                     └──────────────────┘                     └──────────────────┘
 ```
 
-* **`install.bat`** — installs the Revit add-in.
-* **`uninstall.bat`** — removes the Revit add-in.
-* **`install-revit-addin.ps1`** — installation logic called by `install.bat`.
-* **`uninstall-revit-addin.ps1`** — uninstall logic called by `uninstall.bat`.
-* **`RevitAddin/`** — Revit add-in source code.
-* **`RevitJsonImporter.rbz`** — SketchUp extension package.
-* **`revit_importer_extension.rb`** and **`revit_importer.rb`** — SketchUp importer source code.
+---
+
+## 💻 Requirements & Compatibility
+
+| Software | Supported Versions | Notes |
+|---|---|---|
+| **Autodesk Revit** | 2021, 2022, 2023, 2024, 2025, 2026, 2027+ | All 64-bit editions |
+| **Trimble SketchUp** | 2017 or newer | Pro, Studio, or Desktop |
+| **Operating System** | Windows 10 / 11 (64-bit) | Requires MSBuild / .NET Build Tools (Free) |
 
 ---
 
-## Known Limitations
+## 📦 Installation Guide
 
-* Geometry imported into SketchUp is **static rather than parametric**. Most geometry is transferred as triangulated faces, while supported cylindrical surfaces are reconstructed as smooth segmented geometry. The workflow is intended primarily for visualization and coordination, not for editing geometry in SketchUp and pushing changes back into Revit.
-* For very large models, exporting a selection rather than the entire project is recommended so the JSON file remains manageable and the SketchUp import stays responsive.
-* Colors are read per face from Revit materials, including materials inherited from Type, Family, or subcategory. If a face has no material information, a default gray color is used.
+### 1. Install the Revit Add-in
+
+1. Download or clone this repository.
+2. Double-click **`install.bat`**.
+   * The installer automatically detects your installed Revit version(s), compiles the add-in, and copies the binary files to your Revit add-ins directory.
+3. Launch or restart Revit.
+4. A new **SketchUp Bridge** panel will appear under the **Add-Ins** tab.
+
+> ℹ️ **Note on MSBuild:** Because this is a compiled C# Revit add-in, your computer needs **MSBuild** (included with *Build Tools for Visual Studio* or .NET SDK). If MSBuild is missing, `install.bat` will notify you with a download link.
+
+### 2. Install the SketchUp Extension
+
+1. Open SketchUp.
+2. Go to **Window > Extension Manager**.
+3. Click **Install Extension** and select **`RevitJsonImporter.rbz`** inside the `SketchUpExtension/` folder.
+4. A new menu item will appear under **Extensions > Import from Revit (JSON)**.
 
 ---
 
-## License & Copyright
+## 🚀 How to Use
+
+| In Revit | In SketchUp |
+|---|---|
+| 1. Open your 3D view and select specific elements (or leave unselected to export all visible 3D geometry). | 1. Open SketchUp and navigate to **Extensions > Import from Revit (JSON)**. |
+| 2. Click **Export RVT to JSON** on the **SketchUp Bridge** panel (*Add-Ins* tab). | 2. Choose the `.json` file exported from Revit. |
+| 3. Choose a destination folder and save the `.json` file. | 3. The geometry appears neatly grouped by Revit category with preserved material colors. |
+
+---
+
+## 📁 Repository Structure
+
+```text
+revit-to-sketchup-bridge/
+├── install.bat                      # One-click installer launcher
+├── uninstall.bat                    # One-click uninstaller launcher
+├── install-revit-addin.ps1          # PowerShell build & deployment script
+├── uninstall-revit-addin.ps1        # PowerShell removal script
+├── RevitAddin/                      # C# Revit Add-in source code
+│   ├── icon/                        # Add-in ribbon icons (16x16, 32x32)
+│   ├── App.cs                       # UI ribbon initialization
+│   ├── ExportCommand.cs             # Geometry extraction & JSON exporter
+│   └── RevitToSketchUpExporter.csproj
+└── SketchUpExtension/               # Ruby SketchUp extension package
+    ├── RevitJsonImporter.rbz        # Pre-packaged SketchUp extension
+    ├── revit_importer_extension.rb  # Extension loader
+    └── revit_importer/              # Importer logic & surface builder
+```
+
+---
+
+## ⚠️ Known Limitations
+
+* **Static Geometry**: Exported models are transferred as static polygonal faces rather than parametric Revit families.
+* **Large Models**: For complex projects with tens of thousands of elements, exporting selected elements or section-boxed views is recommended for optimal performance.
+* **Colors & Materials**: Materials are resolved per-face. Elements without assigned materials receive a neutral gray fallback color (`RGB 200, 200, 200`).
+
+---
+
+## 📄 License & Copyright
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -99,6 +110,4 @@ This project is open-source software distributed under the terms of the **[MIT L
 Copyright (c) 2026 Arman Arisman
 ```
 
-You are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of this software for both commercial and non-commercial purposes, provided that the above copyright notice and permission notice are included in all copies or substantial portions of the software.
-
-For full license terms and conditions, please refer to the [`LICENSE`](LICENSE) file.
+You are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of this software for both commercial and non-commercial purposes. See the [`LICENSE`](LICENSE) file for complete details.
